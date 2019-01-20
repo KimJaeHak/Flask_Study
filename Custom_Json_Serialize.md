@@ -6,7 +6,14 @@
 Json을 Serialize 할 때 여러 객체들이 있다 예를 들어 JObject, Jproperty, Jarray 등등 이런 클래스 들의 Base 클래스로 
 생각 하면 좋을 듯 하다.
 
-- **JObject**
+- **JObject**  
+JObject는 Serialize 하는 대상 객체라고 생각 하면 된다. Serialize Tree의 Root 라고 보면 된다.
+
+- **JProperty**  
+Json의 기본 데이터 셋이라고 보면 된다. Json는 기본적으로 {Key : Value}가 기본 최소 단위이며 이것이 Jproperty라고 보면된다.
+
+- **Jarray** 
+
 
 Sample Code
 
