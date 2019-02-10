@@ -37,7 +37,7 @@ C# 코드와 비교 하니 의미가 더 잘 이해 되는 것 같다.
 ### -XAML Template
 
 ### -Data Binding
-1. RelativeSource 를 사용 해서 바인딩
+**1. RelativeSource 를 사용 해서 바인딩**
   - Window 자신을 DataContext로 참조
 ```XAML
 <Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -73,7 +73,69 @@ C# 코드와 비교 하니 의미가 더 잘 이해 되는 것 같다.
             </DataGrid.Columns>
 ```
 
+**2. Wpf Xaml , Covnerters**
+IValueConverter를 상속 받아서 구현해야 한다.
 
+```cs
+    public class NegativeNumberConverter : IValueConverter
+    {
+        // Source -> Target
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            int input = (int)value;
+            if (input >= 0) return input.ToString();
+            else return string.Format("({0})", 0 - input);
+        }
+
+        //Target -> Source
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value.ToString().StartsWith("(") && value.ToString().EndsWith(")"))
+            {
+                return -int.Parse(value.ToString().Substring(1, value.ToString().Length - 2));
+            }
+            else return value;
+        }
+    }
+```
+ 
+-  Window Resource로 등록 해서 사용 한다.
+```xaml
+    <Window.Resources>
+        <local:NegativeNumberConverter x:Key="NegConverter" />
+    </Window.Resources>
+
+    ...
+
+    <TextBox x:Name="ageTextBox"
+          Width="120"
+          VerticalAlignment="Center"
+          Text="{Binding Path=Age, Converter={StaticResource NegConverter}}"
+          Grid.Row="3"
+          Margin="3"
+          Height="23"
+          HorizontalAlignment="Left"
+          Grid.Column="1" />
+```
+
+**3. Async Binding**
+
+- IsAsync 속성을 True로 주면 Background Thread에서 Set동작을 하게 되는데, 여러 Target에서 수정을 할때 Concurrency(동시성)에 문제가 발생할 소지가 있음.
+
+- Delay 속성은 ms 단위로 입력을 하며 Target에서 입력을 한 후 ms이후에 Source에 적용이 되도록 하는 Option이다.
+
+```xaml
+  <TextBox x:Name="phoneTextBox"
+            Width="120"
+            VerticalAlignment="Center"
+            Text="{Binding Phone, IsAsync=True}"
+            
+  <TextBox x:Name="TargetTextBox"
+                 Text="{Binding ElementName=SourceTextBox, Path=Text, UpdateSourceTrigger=PropertyChanged, Delay=500}"
+                 HorizontalAlignment="Left"
+                 Height="23"
+
+```
 
 
 
