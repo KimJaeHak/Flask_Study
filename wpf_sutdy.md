@@ -129,11 +129,15 @@ IValueConverter를 상속 받아서 구현해야 한다.
             Width="120"
             VerticalAlignment="Center"
             Text="{Binding Phone, IsAsync=True}"
+            ...
+            />
             
   <TextBox x:Name="TargetTextBox"
                  Text="{Binding ElementName=SourceTextBox, Path=Text, UpdateSourceTrigger=PropertyChanged, Delay=500}"
                  HorizontalAlignment="Left"
                  Height="23"
+                 ...
+                 />
 
 ```
 
