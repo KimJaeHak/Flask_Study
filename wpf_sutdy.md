@@ -141,7 +141,63 @@ IValueConverter를 상속 받아서 구현해야 한다.
 
 ```
 
+**4. Fallback Values**
+- Binding애 대한 오류 처리
+ 1) TargetNullValue : 연결 소스 속성이 null인 경우에 대한 처리
+ 2) FallbackValue : 연결 소스가 존재 하지 않을 경우에 대한 처리(Binding Path 오타로 인해 발생)
 
+```xaml
+            <TextBox x:Name="nameTextBox"
+                     Width="120"
+                     VerticalAlignment="Center"
+                     Text="{Binding Path=Namex, Mode=Default, TargetNullValue='Not set', FallbackValue='no value'}"
+/>
+
+```
+  
+**5. DataTemplate**
+- DataTemplate는 어떤 Control에 사용 할 수 있을까?
+> 1) ContentControl.ContentTemplate
+> 2) ItemsControl.ItemTemplate
+
+  위 유형의 Control 에 사용 가능 함.
+
+- DataTemplate Code Example
+```xaml
+<UserControl x:Class="DataTemplates.ExplicitDataTemplatesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DataTemplates"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+      <DataTemplate x:Key="ProductTemplate">
+          <Grid>
+              <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="Auto"/>
+                  <ColumnDefinition Width="Auto"/>
+              </Grid.ColumnDefinitions>
+              <Image x:Name="ProductImage" Source="{Binding Image}"  Margin="5" Width="100"/>
+              <Grid Grid.Column="1" Height="{Binding ElementName=ProductImage, Path=Height}">
+                  <Grid.RowDefinitions>
+                      <RowDefinition Height="Auto"/>
+                      <RowDefinition Height="Auto"/>
+                  </Grid.RowDefinitions>
+                  <TextBlock Text="{Binding Name}" FontFamily="Arial" FontSize="14" FontWeight="Bold"/>
+                  <TextBlock Grid.Row="1" Text="{Binding Description}" TextWrapping="Wrap" Width="300"/>
+              </Grid>
+          </Grid>
+      </DataTemplate>
+    </UserControl.Resources>
+    <Grid>
+        <ListBox x:Name="ProductsListBox" ItemsSource="{Binding Products}"
+                    ItemTemplate="{StaticResource ProductTemplate}">
+        </ListBox>
+    </Grid>
+</UserControl>
+```
 
 
 
