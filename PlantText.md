@@ -1,5 +1,6 @@
 # PlantText
 
+``` plantuml
 @startuml
 
 title Relationships - Class Diagram
@@ -24,3 +25,4 @@ Dwelling "1" *-up- "many" Window: Composition
 Dwelling "1" *-up- "many" Door: Composition
 
 @enduml
+```
