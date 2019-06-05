@@ -2,9 +2,8 @@
 
 
 @startuml
+
 title Relationships - Class Diagram
-
-
 class Dwelling {
   +Int Windows
   +void LockTheDoor()
@@ -22,5 +21,6 @@ Dwelling <|-down- Commune: Inheritance
 Dwelling <|-down- House: Inheritance
 Dwelling "1" *-up- "many" Window: Composition
 Dwelling "1" *-up- "many" Door: Composition
+
 
 @enduml
