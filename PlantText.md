@@ -1,9 +1,28 @@
 # PlantText
 
 ```plantuml
-Alice -> Bob: Authentication Request
-Bob --> Alice: Authentication Response
+@startuml
 
-Alice -> Bob: Another authentication Request
-Alice <-- Bob: Another authentication Response
+title Relationships - Class Diagram
+
+
+class Dwelling {
+  +Int Windows
+  +void LockTheDoor()
+}
+
+class Apartment
+class House
+class Commune
+class Window
+class Door
+class 
+
+Dwelling <|-down- Apartment: Inheritance
+Dwelling <|-down- Commune: Inheritance
+Dwelling <|-down- House: Inheritance
+Dwelling "1" *-up- "many" Window: Composition
+Dwelling "1" *-up- "many" Door: Composition
+
+@enduml
 ```
