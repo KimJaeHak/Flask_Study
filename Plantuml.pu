@@ -1,4 +1,3 @@
-```plantuml
 @startuml PartialRendering
 
 class ModelingManager
@@ -87,5 +86,3 @@ ModelSection3DView ..> PartialRenderingShapeBuilder
 PartialRenderingShapeBuilder .up.> ItemModelShape
 PartialRenderingShapeBuilder --> IPanelSingleView
 @enduml
-
-```
